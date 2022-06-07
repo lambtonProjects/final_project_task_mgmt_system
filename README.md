@@ -10,3 +10,4 @@ Tasks (task id, task name, task description, task start date, task end date)
 6. For data storage use local storage or any other storage you are comfortable with.
 7. Every administrator should be able to see all the tasks they have created along with their details (status)/
 
+![image](https://user-images.githubusercontent.com/84790644/172409415-45145aab-4569-4d78-8487-5cdec0b50580.png)
