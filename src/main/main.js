@@ -49,13 +49,22 @@ function populateList(){
             var to = document.getElementById("to");
             var completed = document.getElementById("completed");
             var description = document.getElementById("description");
+            var owner = document.getElementById("owner");
+            var assigned = document.getElementById("assigned");
+            var rate = document.getElementById("rate");
+            var hours = document.getElementById("hours");
+            
             
             id.textContent = taskList[this.id].id;
             name.textContent = taskList[this.id].name;
             from.textContent = taskList[this.id].from;
             to.textContent = taskList[this.id].to;
-            completed.textContent = taskList[this.id].completed;
+            completed.textContent = (taskList[this.id].completed)?"Completed":"In Progress";
             description.textContent = taskList[this.id].description;
+            owner.textContent = taskList[this.id].owner;
+            assigned.textContent = taskList[this.id].assigned;
+            rate.textContent = taskList[this.id].rate;
+            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Not Completed Yet";
             modal.style.display = "block";
         
         })
