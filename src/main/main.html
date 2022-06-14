@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-primary btn-lg" onclick="addTask()">Add a task</button>
         </div>
 
-        <div class="row" id="task_list">
+        <div class="col" id="task_list">
             <div class="col-sm-3 p-3 bg-primary text-white">.col</div>
             <div class="col-sm-3 p-3 bg-dark text-white">.col</div>
             <div class="col-sm-3 p-3 bg-primary text-white">.col</div>
@@ -28,13 +28,50 @@
             <!-- Modal content - task details -->
             <div class="modal-content">
               <span class="close">&times;</span>
-              <pr style="position: fixed; left:10px;">Task ID: </pr>
-              <pr id="ID" style="color:black;position: fixed; left:70px;"></pr>
-              <p id="name"></p>
-              <p id="from"></p>
-              <p id="to"></p>
-              <p id="completed"></p>
-              <p id="description"></p>
+              <table>
+                <tr>
+                    <td>Task ID:</td>
+                    <td id="ID"></td>
+                </tr>
+                <tr>
+                    <td>Task Name:</td>
+                    <td id="name"></td>
+                </tr>
+                <tr>
+                    <td>Task From Date:</td>
+                    <td id="from"></td>
+                </tr>
+                <tr>
+                    <td>Task Due Date:</td>
+                    <td id="to"></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td id="completed"></td>
+                </tr>
+                <tr>
+                    <td>Task Owner:</td>
+                    <td id="owner"></td>
+                </tr>
+                <tr>
+                    <td>Assigned to:</td>
+                    <td id="assigned"></td>
+                </tr>
+                <tr>
+                    <td>Cost per hour:</td>
+                    <td id="rate"></td>
+                </tr>
+                <tr>
+                    <td>Hours of work:</td>
+                    <td id="hours"></td>
+                </tr>
+                <tr>
+                    <td>Task Description:</td>
+                    <td id="description"></td>
+                </tr>
+
+              </table>
+             
             </div>
         </div>
     </div>

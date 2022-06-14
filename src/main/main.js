@@ -7,11 +7,8 @@ var span = document.getElementsByClassName("close")[0];
 (function() {
     'use strict'
     
-    
-    
     getTasks();
     
-
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
@@ -52,7 +49,6 @@ function populateList(){
             var to = document.getElementById("to");
             var completed = document.getElementById("completed");
             var description = document.getElementById("description");
-            console.log(this.id);
             
             id.textContent = taskList[this.id].id;
             name.textContent = taskList[this.id].name;
@@ -60,7 +56,7 @@ function populateList(){
             to.textContent = taskList[this.id].to;
             completed.textContent = taskList[this.id].completed;
             description.textContent = taskList[this.id].description;
-        modal.style.display = "block";
+            modal.style.display = "block";
         
         })
     }
