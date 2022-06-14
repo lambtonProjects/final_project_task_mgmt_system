@@ -16,7 +16,15 @@ const firebaseConfig = {
   const auth = firebase.auth()
   const db = firebase.firestore()
    
-  
+  function getApp(){
+    return app;
+  }
+   function getAuth(){
+    return auth;
+  }
+   function getDB(){
+    return db;
+  }
   // Set up our login function
   function login () {
     // Get all our input fields
@@ -34,20 +42,7 @@ const firebaseConfig = {
     .then(function() {
       // Declare user variable
       var user = auth.currentUser
-  
-    //   // Add this user to Firebase Database
-    //   var database_ref = database.ref()
-  
-    //   // Create User data
-    //   var user_data = {
-    //     last_login : Date.now()
-    //   }
-  
-    //   // Push to Firebase Database
-    //   database_ref.child('users/' + user.uid).update(user_data)
-  
-      // DOne
-    //   alert('User Logged In!!')
+ 
     window.location.replace("main/main.html");
   
     })
@@ -142,17 +137,4 @@ const firebaseConfig = {
       return true
     }
   }
-  function addTask(){
-    db.collection("users").add({
-        task_Name: "task x",
-        responsible:"alejandro",
-        status: "started"
-    })
-    .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
-    });
-      console.log("adding task");
-  }
+  
