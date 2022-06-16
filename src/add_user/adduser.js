@@ -34,7 +34,8 @@ form.addEventListener('submit', handleForm);
                 name: strName,
                 surname: strSurname,
                 email: strEmail,
-                password: strPassword
+                password: strPassword,
+                admin:false
             }
 
             db.collection("users")
@@ -62,5 +63,19 @@ form.addEventListener('submit', handleForm);
 }
 
   function cancel(){    
-    window.location.href="../main/main.html";
+    //window.location.href="../main/main.html";
+
+    // const snapshot = db.collection('tasks').get().then(function(values){
+    //     values.forEach((doc) => {
+    //         console.log(doc.id, '=>', doc.data().test.get());
+    //         doc.data().test.get().then(function(value){
+    //             console.log(value.data())
+    //         })
+    //       });
+    // });
+
+    window.location.href = '../main/main.html';
+
+
   }
+

@@ -119,5 +119,8 @@ function goAddTask(){
     
     window.location.href = '../add_tasks/addtask.html';
   }
+function goToAddUser() {
+    window.location.href = '../add_user/adduser.html';
+}
 // database.getReference("todoList").push().getKey(); how to get key uid
 // db.collection("users").doc(doc.id).update({foo: "bar"}); update doc
