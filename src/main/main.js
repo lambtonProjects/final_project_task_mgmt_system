@@ -115,24 +115,9 @@ function fromFirestore (snapshot){
     const data = snapshot.data();
     return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.from,data.to);
 }
-function addTask(){
+function goAddTask(){
     
-    db.collection("tasks").add({
-        name: "task XX",
-        responsible:"test",
-        description:"test task",
-        completed:false,
-        from:"01/01/2022",
-        to:"01/02/2022"
-
-    })
-    .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
-    });
-      console.log("adding task");
+    window.location.href = '../add_tasks/addtask.html';
   }
 // database.getReference("todoList").push().getKey(); how to get key uid
 // db.collection("users").doc(doc.id).update({foo: "bar"}); update doc

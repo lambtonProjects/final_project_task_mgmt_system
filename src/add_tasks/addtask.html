@@ -11,7 +11,7 @@
     <div class="container shadow p-5 mb-5 bg-body rounded">
         <h3>Add new task</h3>
         <hr class="border-primary border-3 opacity-75">
-        <form name="formTask" onsubmit="return addTask()">
+        <form name="formTask" >
             <div class="mb-3">
                 <label for="formGroupExampleInput" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" >
@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3">
                 <button type="button" class="btn btn-primary btn-lg" onclick="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                <button type="submit" class="btn btn-primary btn-lg" onclick="addTask()">Create</button>
             </div>
         </form>
     </div>
