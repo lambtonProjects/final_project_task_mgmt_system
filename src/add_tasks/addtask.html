@@ -11,43 +11,48 @@
     <div class="container shadow p-5 mb-5 bg-body rounded">
         <h3>Add new task</h3>
         <hr class="border-primary border-3 opacity-75">
-
-        <div class="mb-3">
-            <label for="formGroupExampleInput" class="form-label">Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" >
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
-        <div class="mb-3">
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Assigned to</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <div class="col-lg-3 col-sm-6">
-                <label for="startDate">Start Date</label>
-                <input id="startDate" class="form-control" type="date" />
-                <span id="startDateSelected"></span>
+        <form name="formTask" onsubmit="return addTask()">
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" >
             </div>
-        </div>
-        <div class="mb-3">
-            <div class="col-lg-3 col-sm-6">
-                <label for="endDate">End Date</label>
-                <input id="endDate" class="form-control" type="date" />
-                <span id="endDateSelected"></span>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                <textarea class="form-control" id="description" rows="3"></textarea>
             </div>
-        </div>
-        <div class="mb-3">
-            <button type="button" class="btn btn-primary btn-lg">Cancel</button>
-            <button type="button" class="btn btn-primary btn-lg">Create</button>
-        </div>
-        
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" id="responsible">
+                    <option selected>Assigned to</option>
+                    <option value="testuser1@yopmail.com">testuser1@yopmail.com</option>
+                    <option value="testuser2@yopmail.com">testuser2@yopmail.com</option>
+                    <option value="testuser3@yopmail.com">testuser3@yopmail.com</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <div class="col-lg-3 col-sm-6">
+                    <label for="startDate">Start Date</label>
+                    <input id="startDate" class="form-control" type="date" />
+                    <span id="startDateSelected"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="col-lg-3 col-sm-6">
+                    <label for="endDate">End Date</label>
+                    <input id="endDate" class="form-control" type="date" />
+                    <span id="endDateSelected"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary btn-lg" onclick="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-lg">Create</button>
+            </div>
+        </form>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script src="../index.js"></script>
+    <script src="addtask.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>
 </html>
