@@ -33,6 +33,7 @@ form.addEventListener('submit', handleForm);
             }
 
             var userData = {
+                id: uid,
                 name: strName,
                 surname: strSurname,
                 email: strEmail,
@@ -61,6 +62,7 @@ form.addEventListener('submit', handleForm);
                     showSuccessMessage('Your Account Created','Your account was created successfully, you can log in now.',
                     ).then((value) => {
                         setTimeout(function(){
+                            sessionStorage.clear();
                             window.location.replace("../index.html");
                         }, 1000)
                     });
@@ -90,8 +92,6 @@ form.addEventListener('submit', handleForm);
     //         })
     //       });
     // });
-
-    window.location.href = '../main/main.html';
   }
 
   function checkUser() {

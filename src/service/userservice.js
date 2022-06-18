@@ -10,8 +10,8 @@ class UserService {
         });
     }
     saveUser(userData, success, error) {
-        db.collection("users")
-            .add(userData)
+        db.collection("users").doc(userData.id)
+            .set(userData)
             .then((docRef) => 
             {
                 success(docRef);
