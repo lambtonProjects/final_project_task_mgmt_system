@@ -40,21 +40,35 @@ form.addEventListener('submit', handleForm);
                 admin: bolIsAdmin,
             }
 
-            db.collection("users").doc(uid)
-            .set(userData)
-            .then((docRef) => 
-            {
-                showSuccessMessage('Your Account Created','Your account was created successfully, you can log in now.',
-                ).then((value) => {
-                    setTimeout(function(){
-                        sessionStorage.clear();
-                        window.location.replace("../index.html");
-                    }, 1000)
-                });
-            })
-            .catch((error) => {
-                showErrorMessage(error.message);
-            });
+            // db.collection("users")
+            // .add(userData)
+            // .then((docRef) => 
+            // {
+            //     showSuccessMessage('Your Account Created','Your account was created successfully, you can log in now.',
+            //     ).then((value) => {
+            //         setTimeout(function(){
+            //             window.location.replace("../index.html");
+            //         }, 1000)
+            //     });
+            // })
+            // .catch((error) => {
+            //     showErrorMessage(error.message);
+            // });
+
+            var userService = new UserService(db);
+            userService.saveUser(userData,
+                 function(documentRef){
+                    showSuccessMessage('Your Account Created','Your account was created successfully, you can log in now.',
+                    ).then((value) => {
+                        setTimeout(function(){
+                            window.location.replace("../index.html");
+                        }, 1000)
+                    });
+                 }, 
+                 function(error){
+                    showErrorMessage(error.message);
+                 }
+            );
             
         }).catch((error) => {
             // Handle Errors here.
@@ -66,10 +80,10 @@ form.addEventListener('submit', handleForm);
 }
 
   function cancel(){    
-    //window.location.href="../main/main.html";
+    window.location.href="../main/main.html";
 
     // const snapshot = db.collection('tasks').get().then(function(values){
-    //     values.forEach((doc) => {
+    //     values.forEach((doc) => {s
     //         console.log(doc.id, '=>', doc.data().test.get());
     //         doc.data().test.get().then(function(value){
     //             console.log(value.data())
