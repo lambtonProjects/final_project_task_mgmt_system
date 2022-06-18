@@ -1,3 +1,4 @@
+var ss = JSON.parse(sessionStorage.user);
 var form =document.forms["formUser"];
 function handleForm(event) { event.preventDefault(); } 
 form.addEventListener('submit', handleForm);
@@ -8,6 +9,7 @@ form.addEventListener('submit', handleForm);
     var strSurname = form["surname"].value;
     var strEmail = form["email"].value;
     var strPassword = form["password"].value;
+    var bolIsAdmin = form["isadmin"].checked;
     
 
     if(isEmpty(strName)){
@@ -35,16 +37,17 @@ form.addEventListener('submit', handleForm);
                 surname: strSurname,
                 email: strEmail,
                 password: strPassword,
-                admin:false
+                admin: bolIsAdmin,
             }
 
-            db.collection("users")
-            .add(userData)
+            db.collection("users").doc(uid)
+            .set(userData)
             .then((docRef) => 
             {
                 showSuccessMessage('Your Account Created','Your account was created successfully, you can log in now.',
                 ).then((value) => {
                     setTimeout(function(){
+                        sessionStorage.clear();
                         window.location.replace("../index.html");
                     }, 1000)
                 });
@@ -75,7 +78,13 @@ form.addEventListener('submit', handleForm);
     // });
 
     window.location.href = '../main/main.html';
-
-
   }
+
+  function checkUser() {
+    if(sessionStorage.getItem('user') == null){
+      window.location.replace("../index.html")
+    }else if (!ss.admin){
+        window.location.href="../main/main.html";
+    }
+}
 

@@ -7,14 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="main.css">
   </head>
-  <body style="--bs-body-color: #333;">
+  <body style="--bs-body-color: #333;" onload="checkUser()">
     <div class="container shadow p-5 mb-5 bg-body rounded">
         <div class="row">
-            <div class="col-sm-6"><h3 class="float-start">Wellcome, User</h3></div>  
+            <div class="col-sm-6"><h3 class="float-start" id="wellcome"></h3></div>  
             <div class="col-sm-6"><button type="button" class="btn btn-warning btn-lg float-end" onclick="logout()">Logout</button></div>  
         </div>
         <hr class="border-primary border-3 opacity-75">
-        <div class="mb-3" >
+        <div class="mb-3" id="adminButtons">
             <button type="button" class="btn btn-info btn-lg" onclick="goToAddUser()">Add User</button><!-- ONLY FOR ADMIN-->
             <button type="button" class="btn btn-primary btn-lg" onclick="goAddTask()">Add a task</button> <!-- ONLY FOR ADMIN-->
         </div>

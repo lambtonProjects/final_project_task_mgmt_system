@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-    const app=firebase.initializeApp(firebaseConfig);
+  const app=firebase.initializeApp(firebaseConfig);
 // Initialize variables
   const auth = firebase.auth()
   const db = firebase.firestore()
@@ -26,85 +26,54 @@ const firebaseConfig = {
     return db;
   }
   // Set up our login function
-  function login () {
+  function login(){
     // Get all our input fields
+    buttonElem = document.getElementById('login')
+    spanElem = document.getElementById('spinner')
     email = document.getElementById('email').value
     password = document.getElementById('password').value
-  
+    buttonElem.disabled = true;
+    spanElem.classList.add('spinner-border')
+
     // Validate input fields
     if (validate_email(email) == false || validate_password(password) == false) {
       alert('Email or Password is incorrect!')
+      buttonElem.disabled = false;
+      spanElem.classList.remove('spinner-border')
       return
       // Don't continue running the code
     }
   
-    auth.signInWithEmailAndPassword(email, password)
-    .then(function() {
-      // Declare user variable
+    auth.signInWithEmailAndPassword(email, password).then(function() {
       var user = auth.currentUser
- 
-    window.location.replace("main/main.html");
-  
+      db.collection("users").doc(user.uid).withConverter(userConverter).get().then((doc) => {
+        if (doc.exists) {
+          var user = doc.data()
+            console.log("Document data:", user.toString)
+            sessionStorage.setItem('user', JSON.stringify(user))
+            window.location.replace("main/main.html")
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            buttonElem.disabled = false;
+            spanElem.classList.remove('spinner-border')
+        }
+      }).catch((error) => {
+        console.log("Error getting document:", error);
+        buttonElem.disabled = false;
+        spanElem.classList.remove('spinner-border')
+      });
     })
     .catch(function(error) {
       // Firebase will use this to alert of its errors
       var error_code = error.code
       var error_message = error.message
-  
       alert(error_message)
+      buttonElem.disabled = false;
+      spanElem.classList.remove('spinner-border')
     })
   }
 
-   // Set up our register function
- function register() {
-    // Get all our input fields
-    // email = document.getElementById('email').value
-    // password = document.getElementById('password').value
-    // full_name = document.getElementById('full_name').value
-    password="1234567";
-    full_name="Alejandro Morales";
-    // // Validate input fields
-    // if (validate_email(email) == false || validate_password(password) == false) {
-    //   alert('Email or Password is Outta Line!!')
-    //   return
-    //   // Don't continue running the code
-    // }
-    // if (validate_field(full_name) == false ) {
-    //   alert('One or More Extra Fields is Outta Line!!')
-    //   return
-    // }
-    
-   
-    // Move on with Auth
-    auth.createUserWithEmailAndPassword(email, password)
-    .then(function() {
-      // Declare user variable
-      var user = auth.currentUser
-  
-      db.collection("users").add({
-        Full_Name: full_name,
-        email:email,
-        admin: false
-    })
-    .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-        console.error("Error adding document: ", error);
-    });
-  
-      // DOne
-      alert('User Created!!')
-    })
-    .catch(function(error) {
-      // Firebase will use this to alert of its errors
-      var error_code = error.code
-      var error_message = error.message
-  
-      alert(error_message)
-    })
-  }
-  
   // Validate Functions
   function validate_email(email) {
     expression = /^[^@]+@\w+(\.\w+)+\w$/
@@ -137,4 +106,35 @@ const firebaseConfig = {
       return true
     }
   }
-  
+
+class User {
+  constructor (name, email, admin ) {
+      this.name = name;
+      this.email = email;
+      this.admin = admin;
+  }
+  toString() {
+      return this.name + ', ' + this.email + ', ' + this.admin;
+  }
+}
+
+// Firestore data converter
+var userConverter = {
+    toFirestore: function(user) {
+        return {
+            name: user.name,
+            email: user.email,
+            admin: user.admin
+            };
+    },
+    fromFirestore: function(snapshot, options){
+        const data = snapshot.data(options);
+        return new User(data.name, data.email, data.admin);
+    }
+};
+
+function checkSession() {
+  if(sessionStorage.getItem('user') != null){
+    window.location.replace("/main/main.html")
+  }
+}

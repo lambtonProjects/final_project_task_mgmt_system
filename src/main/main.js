@@ -2,11 +2,18 @@
 var taskList=[];
 var list = "";
 var modal = document.getElementById("myModal");
+var wellcome = document.getElementById("wellcome");
 var span = document.getElementsByClassName("close")[0];
+var ss = JSON.parse(sessionStorage.user);
 
 (function() {
     'use strict'
-    
+    wellcome.textContent = "Wellcome, " + ss.name
+
+    if(!ss.admin) {
+        document.getElementById('adminButtons').style.display="none";
+    }
+
     getTasks();
     
     // When the user clicks on <span> (x), close the modal
@@ -61,8 +68,8 @@ function populateList(){
             to.textContent = taskList[this.id].to;
             completed.textContent = (taskList[this.id].completed)?"Completed":"In Progress";
             description.textContent = taskList[this.id].description;
-            owner.textContent = taskList[this.id].owner;
-            assigned.textContent = taskList[this.id].assigned;
+            owner.textContent = taskList[this.id].taskowner;
+            assigned.textContent = taskList[this.id].responsible;
             rate.textContent = taskList[this.id].rate;
             hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Not Completed Yet";
             modal.style.display = "block";
@@ -91,17 +98,19 @@ function getTasks(){
 }
 class Task {
     
-    constructor (id,name, description,completed,responsible,from,to) {
+    constructor (id,name, description,completed,responsible,taskowner,from,to) {
         this.id=id;
         this.name = name;
         this.description = description;
         this.completed = completed;
         this.responsible = responsible;
+        this.taskowner = taskowner;
         this.from = from;
         this.to = to;
+
     }
     toString(){
-        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"from: "+this.from+"to: "+this.to;
+        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"task owner: "+this.taskowner+"from: "+this.from+"to: "+this.to;
     }
 }
 function toFirestore (task) {
@@ -113,14 +122,24 @@ function toFirestore (task) {
 }
 function fromFirestore (snapshot){
     const data = snapshot.data();
-    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.from,data.to);
+    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to);
 }
 function goAddTask(){
-    
     window.location.href = '../add_tasks/addtask.html';
   }
 function goToAddUser() {
     window.location.href = '../add_user/adduser.html';
+}
+
+function logout(){
+    sessionStorage.clear();
+    window.location.replace("../index.html");
+}
+
+function checkUser() {
+    if(sessionStorage.getItem('user') == null){
+      window.location.replace("../index.html")
+    }
 }
 // database.getReference("todoList").push().getKey(); how to get key uid
 // db.collection("users").doc(doc.id).update({foo: "bar"}); update doc
