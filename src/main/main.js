@@ -60,6 +60,8 @@ function populateList(){
             var assigned = document.getElementById("assigned");
             var rate = document.getElementById("rate");
             var hours = document.getElementById("hours");
+            var total = document.getElementById("total");
+            var completeTaskBtn = document.getElementById("completeTask");
             
             
             id.textContent = taskList[this.id].id;
@@ -71,7 +73,25 @@ function populateList(){
             owner.textContent = taskList[this.id].taskowner;
             assigned.textContent = taskList[this.id].responsible;
             rate.textContent = taskList[this.id].rate;
-            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Not Completed Yet";
+            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Task Not Completed Yet";
+            total.textContent = (taskList[this.id].completed)?taskList[this.id].hours * taskList[this.id].rate:"Task Not Completed Yet";
+            if(taskList[this.id].completed){
+                completeTaskBtn.style.display = "none";
+            }
+
+            completeTaskBtn.addEventListener("click", function(){
+                let workingHours = prompt("How many hours you worked on this task?", "0");
+
+                if (workingHours != null) {
+                    // todo save to database total hours 
+                    // mark task as completed
+                    // refresh the list (task board)
+                    completed.textContent = "Completed";
+                    total.textContent = workingHours*rate; //Fixed(2)
+                    hours.textContent = workingHours;
+
+                }
+            });
             modal.style.display = "block";
         
         })
