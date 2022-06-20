@@ -12,6 +12,7 @@ function addTask(){
     var valueResponsible = document.forms["formTask"]["responsible"].value;
     var valueStartDate = document.forms["formTask"]["startDate"].value;
     var valueEndDate = document.forms["formTask"]["endDate"].value;
+    var valueCostPerHours = document.forms["formTask"]["cost_per_hours"].value;
     var valueTaskOwner = ss.email;
 
     if(isEmpty(valueName)){
@@ -29,6 +30,9 @@ function addTask(){
     }else if(isDateValid(valueEndDate)){
         showErrorMessage("Please Enter A Valid End date");
         return;
+    }else if(isEmpty(valueCostPerHours)){
+        showErrorMessage("Please Enter Cost per hours");
+        return;
     }else{
         db.collection("tasks").add({
             name: valueName,
@@ -37,7 +41,9 @@ function addTask(){
             completed: false,
             taskowner: valueTaskOwner,
             from: valueStartDate,
-            to: valueEndDate
+            to: valueEndDate,
+            costperhours: valueCostPerHours,
+            hoursofwork: 0,
         })
         .then((docRef) => {
             showSuccessMessage('Task Created','Your task was created successfully',
@@ -49,6 +55,7 @@ function addTask(){
                     document.forms["formTask"]["responsible"].value='';
                     document.forms["formTask"]["startDate"].value='';
                     document.forms["formTask"]["endDate"].value='';
+                    document.forms["formTask"]["cost_per_hours"].value='';
                     window.location.href="../main/main.html";
                 }, 1000)
             });
