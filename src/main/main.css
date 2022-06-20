@@ -39,6 +39,11 @@
     padding: 20px;
     border: 1px solid #888;
   }
+
+ .modal-dialog { /* Width */
+    max-width: 50%;
+    width: auto !important;
+}
   
   /* The Close Button */
   .close {
