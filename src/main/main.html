@@ -22,59 +22,59 @@
         <div class="row" id="task_list"></div>
 
         <div id="myModal" class="modal">
+            <div class="modal-dialog modal-fullscreen-lg-down">
+                <div class="modal-content" >
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Task Name: <span id="name"></span></h4>
+                        <button type="button" class="close btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <table class="table table-hover">
+                      <tr>
+                          <td>Task ID:</td>
+                          <td id="ID"></td>
+                      </tr>
+                      <tr>
+                          <td>Task From Date:</td>
+                          <td id="from"></td>
+                      </tr>
+                      <tr>
+                          <td>Task Due Date:</td>
+                          <td id="to"></td>
+                      </tr>
+                      <tr>
+                          <td>Status:</td>
+                          <td id="completed"></td>
+                      </tr>
+                      <tr>
+                          <td>Task Owner:</td>
+                          <td id="owner"></td>
+                      </tr>
+                      <tr>
+                          <td>Assigned to:</td>
+                          <td id="assigned"></td>
+                      </tr>
+                      <tr>
+                          <td>Cost per hour:</td>
+                          <td id="rate"></td>
+                      </tr>
+                      <tr>
+                          <td>Hours of work:</td>
+                          <td id="hours"></td>
+                      </tr>
+                      <tr>
+                        <td>Total Cost:</td>
+                        <td id="total"></td>
+                    </tr>
+                      <tr>
+                          <td>Task Description:</td>
+                          <td id="description"></td>
+                      </tr>
+                    </table>
+                    <button id="completeTask" type="button" class="btn btn-primary btn-lg">Complete the task</button>
+                </div>
+            </div>
           <!-- Modal content - task details -->
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <table>
-              <tr>
-                  <td>Task ID:</td>
-                  <td id="ID"></td>
-              </tr>
-              <tr>
-                  <td>Task Name:</td>
-                  <td id="name"></td>
-              </tr>
-              <tr>
-                  <td>Task From Date:</td>
-                  <td id="from"></td>
-              </tr>
-              <tr>
-                  <td>Task Due Date:</td>
-                  <td id="to"></td>
-              </tr>
-              <tr>
-                  <td>Status:</td>
-                  <td id="completed"></td>
-              </tr>
-              <tr>
-                  <td>Task Owner:</td>
-                  <td id="owner"></td>
-              </tr>
-              <tr>
-                  <td>Assigned to:</td>
-                  <td id="assigned"></td>
-              </tr>
-              <tr>
-                  <td>Cost per hour:</td>
-                  <td id="rate"></td>
-              </tr>
-              <tr>
-                  <td>Hours of work:</td>
-                  <td id="hours"></td>
-              </tr>
-              <tr>
-                <td>Total Cost:</td>
-                <td id="total"></td>
-            </tr>
-              <tr>
-                  <td>Task Description:</td>
-                  <td id="description"></td>
-              </tr>
-              <tr>
-                <td><button id="completeTask">Complete the task</button></td>
-            </tr>
-            </table>
-          </div>
       </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
