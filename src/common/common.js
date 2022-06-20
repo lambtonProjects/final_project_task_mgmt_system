@@ -4,6 +4,25 @@ function isEmpty(string){
     }
     return false;
 }
+
+function isResponsibleValid(taskResponsible){
+    var invalid = "Assigned to";
+    if (taskResponsible == invalid){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function isDateValid(taskDate){
+    var invalid = "";
+    if (taskDate == invalid){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 // xxxxxxxxxx Email Validation xxxxxxxxxx
 function isEmailValid(userEmail){
     var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
