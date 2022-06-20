@@ -9,7 +9,7 @@ var currentTask = null;
 
 (function() {
     'use strict'
-    wellcome.textContent = "Wellcome, " + ss.name
+    wellcome.textContent = "Welcome, " + ss.name
 
     if(!ss.admin) {
         document.getElementById('adminButtons').style.display="none";
@@ -86,9 +86,9 @@ function populateList(){
                 completeTaskBtn.style.display = "none";
             }
 
-            completeTaskBtn.addEventListener("click", function(){
+            completeTaskBtn.onclick = function (){
                 let workingHours = prompt("How many hours you worked on this task?", "0");
-
+           
                 if (workingHours != null) {
                     db.collection("tasks").doc(currentTask.id).update({completed: true});
                     db.collection("tasks").doc(currentTask.id).update({"hoursofwork": workingHours});
@@ -99,14 +99,15 @@ function populateList(){
                     taskList = [];
                     list = "";
                     getTasks(); //refresh the screen
-
                 }
-            });
+            }
             modal.style.display = "block";
         
         })
     }
 }
+
+
 function getTasks(){
     db.collection("tasks")
     .get()
