@@ -123,7 +123,7 @@ function getTasks(){
 }
 class Task {
     
-    constructor (id,name, description,completed,responsible,taskowner,from,to) {
+    constructor (id,name, description,completed,responsible,taskowner,from,to, hours, rate) {
         this.id=id;
         this.name = name;
         this.description = description;
@@ -132,10 +132,13 @@ class Task {
         this.taskowner = taskowner;
         this.from = from;
         this.to = to;
+        this.hours = hours;
+        this.rate = rate;
+
 
     }
     toString(){
-        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"task owner: "+this.taskowner+"from: "+this.from+"to: "+this.to;
+        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"task owner: "+this.taskowner+"from: "+this.from+"to: "+this.to + "hours: " + this.hours + "rate: " + this.rate;
     }
 }
 function toFirestore (task) {
@@ -147,7 +150,7 @@ function toFirestore (task) {
 }
 function fromFirestore (snapshot){
     const data = snapshot.data();
-    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to);
+    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to,data.hours,data.rate);
 }
 function goAddTask(){
     window.location.href = '../add_tasks/addtask.html';
