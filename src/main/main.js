@@ -79,16 +79,21 @@ function populateList(){
                 completeTaskBtn.style.display = "none";
             }
 
+            if(ss.admin){
+                completeTaskBtn.style.display = "none";
+            }
+
             completeTaskBtn.addEventListener("click", function(){
                 let workingHours = prompt("How many hours you worked on this task?", "0");
 
                 if (workingHours != null) {
                     // todo save to database total hours 
-                    // mark task as completed
-                    // refresh the list (task board)
+                    // mark in db task as completed
+                    //refresh the icon on main screen
                     completed.textContent = "Completed";
                     total.textContent = workingHours*rate; //Fixed(2)
                     hours.textContent = workingHours;
+                    completeTaskBtn.style.display = "none";
 
                 }
             });
