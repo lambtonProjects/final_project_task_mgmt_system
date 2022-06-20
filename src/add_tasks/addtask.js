@@ -1,4 +1,5 @@
 var userList=[];
+var list = "";
 var ss = JSON.parse(sessionStorage.user);
 var form =document.forms["formTask"];
 function handleForm(event) { event.preventDefault(); } 
@@ -86,49 +87,14 @@ function addTask(){
   }
 
   function populateUserSelect(){
-    //list = document.getElementById('task_list');
     console.log("user list lenth = " + userList);
     for (var i = 0; i < userList.length; i++){
-        var ls = "";
-        ls +=""
-
+        var ls = ""
+        ls +="<option value=\""+userList[i].email+"\">"+userList[i].email+"</option>"
         list += ls;
     }
 
-    document.getElementById("task_list").innerHTML = list;
-    var tasks = document.getElementsByClassName("task");
-
-    for(var j = 0; j<tasks.length;j++){
-        var task = tasks[j];
-        task.id = j;
-        task.addEventListener("click", function()
-        {
-            var id = document.getElementById("ID");
-            var name = document.getElementById("name");
-            var from = document.getElementById("from");
-            var to = document.getElementById("to");
-            var completed = document.getElementById("completed");
-            var description = document.getElementById("description");
-            var owner = document.getElementById("owner");
-            var assigned = document.getElementById("assigned");
-            var rate = document.getElementById("rate");
-            var hours = document.getElementById("hours");
-            
-            
-            id.textContent = taskList[this.id].id;
-            name.textContent = taskList[this.id].name;
-            from.textContent = taskList[this.id].from;
-            to.textContent = taskList[this.id].to;
-            completed.textContent = (taskList[this.id].completed)?"Completed":"In Progress";
-            description.textContent = taskList[this.id].description;
-            owner.textContent = taskList[this.id].taskowner;
-            assigned.textContent = taskList[this.id].responsible;
-            rate.textContent = taskList[this.id].rate;
-            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Not Completed Yet";
-            modal.style.display = "block";
-        
-        })
-    }
+    document.getElementById("responsible").innerHTML = "<option selected>Assigned to</option>"+list;
 }
 
 
