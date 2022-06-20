@@ -5,6 +5,7 @@ var modal = document.getElementById("myModal");
 var wellcome = document.getElementById("wellcome");
 var span = document.getElementsByClassName("close")[0];
 var ss = JSON.parse(sessionStorage.user);
+var currentTask = null;
 
 (function() {
     'use strict'
@@ -62,7 +63,7 @@ function populateList(){
             var hours = document.getElementById("hours");
             var total = document.getElementById("total");
             var completeTaskBtn = document.getElementById("completeTask");
-            
+            currentTask = taskList[this.id];
             
             id.textContent = taskList[this.id].id;
             name.textContent = taskList[this.id].name;
@@ -72,11 +73,13 @@ function populateList(){
             description.textContent = taskList[this.id].description;
             owner.textContent = taskList[this.id].taskowner;
             assigned.textContent = taskList[this.id].responsible;
-            rate.textContent = taskList[this.id].rate;
-            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hours:"Task Not Completed Yet";
-            total.textContent = (taskList[this.id].completed)?taskList[this.id].hours * taskList[this.id].rate:"Task Not Completed Yet";
+            rate.textContent = taskList[this.id].costperhours;
+            hours.textContent = (taskList[this.id].completed)?taskList[this.id].hoursofwork:"Task Not Completed Yet";
+            total.textContent = (taskList[this.id].completed)?taskList[this.id].hoursofwork * taskList[this.id].costperhours:"Task Not Completed Yet";
             if(taskList[this.id].completed){
                 completeTaskBtn.style.display = "none";
+            }else{
+                completeTaskBtn.style.display = "block";
             }
 
             if(ss.admin){
@@ -87,13 +90,18 @@ function populateList(){
                 let workingHours = prompt("How many hours you worked on this task?", "0");
 
                 if (workingHours != null) {
+                    db.collection("tasks").doc(currentTask.id).update({completed: true});
+                    db.collection("tasks").doc(currentTask.id).update({hoursofwork: workingHours});
                     // todo save to database total hours 
                     // mark in db task as completed
                     //refresh the icon on main screen
                     completed.textContent = "Completed";
-                    total.textContent = workingHours*rate; //Fixed(2)
+                    total.textContent = workingHours*costperhours; //Fixed(2)
                     hours.textContent = workingHours;
-                    completeTaskBtn.style.display = "none";
+                    modal.style.display = "none";
+                    taskList = [];
+                    list = "";
+                    getTasks(); //refresh the screen
 
                 }
             });
@@ -123,7 +131,7 @@ function getTasks(){
 }
 class Task {
     
-    constructor (id,name, description,completed,responsible,taskowner,from,to, hours, rate) {
+    constructor (id,name, description,completed,responsible,taskowner,from,to, hoursofwork, costperhours) {
         this.id=id;
         this.name = name;
         this.description = description;
@@ -132,13 +140,13 @@ class Task {
         this.taskowner = taskowner;
         this.from = from;
         this.to = to;
-        this.hours = hours;
-        this.rate = rate;
+        this.hoursofwork = hoursofwork;
+        this.costperhours = costperhours;
 
 
     }
     toString(){
-        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"task owner: "+this.taskowner+"from: "+this.from+"to: "+this.to + "hours: " + this.hours + "rate: " + this.rate;
+        return "id: "+this.id+"name: "+this.name+"description: "+this.description+"completed: "+this.completed+"responsible: "+this.responsible+"task owner: "+this.taskowner+"from: "+this.from+"to: "+this.to + "hours: " + this.hoursofwork + "rate: " + this.costperhours;
     }
 }
 function toFirestore (task) {
@@ -150,7 +158,7 @@ function toFirestore (task) {
 }
 function fromFirestore (snapshot){
     const data = snapshot.data();
-    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to,data.hours,data.rate);
+    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to,data.costperhours,data.hoursofwork);
 }
 function goAddTask(){
     window.location.href = '../add_tasks/addtask.html';
