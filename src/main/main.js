@@ -91,12 +91,12 @@ function populateList(){
 
                 if (workingHours != null) {
                     db.collection("tasks").doc(currentTask.id).update({completed: true});
-                    db.collection("tasks").doc(currentTask.id).update({hoursofwork: workingHours});
+                    db.collection("tasks").doc(currentTask.id).update({"hoursofwork": workingHours});
                     // todo save to database total hours 
                     // mark in db task as completed
                     //refresh the icon on main screen
                     completed.textContent = "Completed";
-                    total.textContent = workingHours*costperhours; //Fixed(2)
+                    total.textContent = workingHours * currentTask.costperhours; //Fixed(2)
                     hours.textContent = workingHours;
                     modal.style.display = "none";
                     taskList = [];
@@ -158,7 +158,7 @@ function toFirestore (task) {
 }
 function fromFirestore (snapshot){
     const data = snapshot.data();
-    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to,data.costperhours,data.hoursofwork);
+    return new Task(snapshot.id, data.name, data.description,data.completed,data.responsible,data.taskowner,data.from,data.to,data.hoursofwork,data.costperhours);
 }
 function goAddTask(){
     window.location.href = '../add_tasks/addtask.html';
